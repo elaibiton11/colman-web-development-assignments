@@ -13,4 +13,16 @@ async function addPost(req, res) {
   }
 }
 
-module.exports = { addPost };
+module.exports = {addPost, getAllPosts}
+
+async function getAllPosts(req, res) {
+  try {
+    const { sender } = req.query;
+    const filter = {};
+    if (sender) filter.sender = sender;
+    const items = await Post.find(filter).sort({ createdAt: -1 }).lean();
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}

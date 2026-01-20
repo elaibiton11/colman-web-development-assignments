@@ -13,8 +13,6 @@ async function addPost(req, res) {
   }
 }
 
-module.exports = {addPost, getAllPosts}
-
 async function getAllPosts(req, res) {
   try {
     const { sender } = req.query;
@@ -26,3 +24,16 @@ async function getAllPosts(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+async function getPostById(req, res) {
+  try {
+    const { id } = req.params;
+    const post = await Post.findById(id).lean();
+    if (!post) return res.status(404).json({ error: 'Post not found' });
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = {addPost, getAllPosts, getPostById};

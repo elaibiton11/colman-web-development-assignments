@@ -9,16 +9,8 @@ Content-Type: application/json
 	"sender": "user123"
 }
 
-async function getAllPosts(req, res) {
-  try {
-    const { sender } = req.query;
-    const filter = {};
-    if (sender) filter.sender = sender;
-    const items = await Post.find(filter).sort({ createdAt: -1 }).lean();
-    res.json(items);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
 ### Get All Posts
 GET http://localhost:3000/post
+
+### Get a Post by ID (replace :id)
+GET http://localhost:3000/post/694d81391c79b2a3679f581c

@@ -54,5 +54,25 @@ async function updateComment(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+async function deleteComment(req, res) {
+  try {
+    const { id } = req.params;
+    const deleted = await Comment.findByIdAndDelete(id);
+    if (!deleted) return res.status(404).json({ error: 'Comment not found' });
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
-module.exports = { addComment, getAllComments, getCommentById, updateComment}
+async function getCommentByPostId(req, res) {
+  try {
+    const { postId } = req.params;
+    const comments = await Comment.find({ postId }).sort({ createdAt: -1 }).lean();
+    res.json(comments);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { addComment, getAllComments, getCommentById, updateComment, deleteComment, getCommentByPostId };

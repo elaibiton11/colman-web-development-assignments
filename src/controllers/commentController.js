@@ -39,4 +39,20 @@ async function getCommentById(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-module.exports = { addComment, getAllComments, getCommentById}
+
+async function updateComment(req, res) {
+  try {
+    const { id } = req.params;
+    const { postId, sender, message } = req.body;
+    if (!postId || !sender || !message) {
+      return res.status(400).json({ error: 'postId, sender and message are required' });
+    }
+    const updated = await Comment.findByIdAndUpdate(id, { postId, sender, message }, { new: true, runValidators: true }).lean();
+    if (!updated) return res.status(404).json({ error: 'Comment not found' });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { addComment, getAllComments, getCommentById, updateComment}

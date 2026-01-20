@@ -18,6 +18,14 @@ GET http://localhost:3000/post/96fb7857cf27a620b7
 ### Get Posts by Sender
 GET http://localhost:3000/post?sender=user123
 
+### Update a Post (replace :id)
+PUT http://localhost:3000/post/694d81391c79b2a3679f581c
+Content-Type: application/json
+
+{
+	"title": "Updated title",
+	"content": "Updated content",
+	"sender": "user123"
 ### Create a Comment
 POST http://localhost:3000/comments
 Content-Type: application/json

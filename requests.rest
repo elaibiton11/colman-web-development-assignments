@@ -37,6 +37,12 @@ Content-Type: application/json
 	"message": "I didnt like that post!"
 }
 
+### Get Comments for a Post (query)
+GET http://localhost:3000/comments?post=694d81391c79b2a3679f581c
+
+### Get Comments for a Post (route)
+GET http://localhost:3000/post/694d81391c79b2a3679f581c/comments
+
 ### Get All Comments
 GET http://localhost:3000/comments
 
@@ -52,3 +58,5 @@ Content-Type: application/json
 	"sender": "commenter1",
 	"message": "Edited comment"
 }
+### Delete Comment
+DELETE http://localhost:3000/comments/694d820b1c79b2a3679f5824

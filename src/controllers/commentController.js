@@ -16,3 +16,27 @@ async function addComment(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+async function getAllComments(req, res) {
+  try {
+    const { post } = req.query;
+    const filter = {};
+    if (post) filter.postId = post;
+    const items = await Comment.find(filter).sort({ createdAt: -1 }).lean();
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function getCommentById(req, res) {
+  try {
+    const { id } = req.params;
+    const c = await Comment.findById(id).lean();
+    if (!c) return res.status(404).json({ error: 'Comment not found' });
+    res.json(c);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+module.exports = { addComment, getAllComments, getCommentById}

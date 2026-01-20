@@ -26,6 +26,7 @@ Content-Type: application/json
 	"title": "Updated title",
 	"content": "Updated content",
 	"sender": "user123"
+}
 ### Create a Comment
 POST http://localhost:3000/comments
 Content-Type: application/json
@@ -35,3 +36,9 @@ Content-Type: application/json
 	"sender": "commenter2",
 	"message": "I didnt like that post!"
 }
+
+### Get All Comments
+GET http://localhost:3000/comments
+
+### Get Comment by ID
+GET http://localhost:3000/comments/694d820b1c79b2a3679f5824

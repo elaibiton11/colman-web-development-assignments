@@ -42,3 +42,13 @@ GET http://localhost:3000/comments
 
 ### Get Comment by ID
 GET http://localhost:3000/comments/694d820b1c79b2a3679f5824
+
+### Update Comment
+PUT http://localhost:3000/comments/696fbda76ba1d3cf1c9746f2
+Content-Type: application/json
+
+{
+	"postId": "694d81391c79b2a3679f581c",
+	"sender": "commenter1",
+	"message": "Edited comment"
+}

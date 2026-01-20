@@ -36,4 +36,20 @@ async function getPostById(req, res) {
   }
 }
 
-module.exports = {addPost, getAllPosts, getPostById};
+
+async function updatePost(req, res) {
+  try {
+    const { id } = req.params;
+    const { title, content, sender } = req.body;
+    if (!title || !content || !sender) {
+      return res.status(400).json({ error: 'title, content and sender are required' });
+    }
+    const updated = await Post.findByIdAndUpdate(id, { title, content, sender }, { new: true, runValidators: true }).lean();
+    if (!updated) return res.status(404).json({ error: 'Post not found' });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = {addPost, getAllPosts, getPostById, updatePost};

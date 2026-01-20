@@ -26,4 +26,12 @@ Content-Type: application/json
 	"title": "Updated title",
 	"content": "Updated content",
 	"sender": "user123"
+### Create a Comment
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+	"postId": "694d81391c79b2a3679f581c",
+	"sender": "commenter2",
+	"message": "I didnt like that post!"
 }

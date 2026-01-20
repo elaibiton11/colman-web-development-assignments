@@ -1,5 +1,4 @@
 const Post = require('../models/postModel');
-const Comment = require('../models/commentModel');
 
 async function addPost(req, res) {
   try {
@@ -13,3 +12,5 @@ async function addPost(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+module.exports = { addPost };

@@ -13,13 +13,13 @@ Content-Type: application/json
 GET http://localhost:3000/post
 
 ### Get a Post by ID (replace :id)
-GET http://localhost:3000/post/96fb7857cf27a620b7
+GET http://localhost:3000/post/69734983cdd3d321f589cde2
 
 ### Get Posts by Sender
 GET http://localhost:3000/post?sender=user123
 
 ### Update a Post (replace :id)
-PUT http://localhost:3000/post/694d81391c79b2a3679f581c
+PUT http://localhost:3000/post/69734983cdd3d321f589cde2
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ POST http://localhost:3000/comments
 Content-Type: application/json
 
 {
-	"postId": "694d81391c79b2a3679f581c",
+	"postId": "69734983cdd3d321f589cde2",
 	"sender": "commenter2",
 	"message": "I didnt like that post!"
 }

@@ -27,6 +27,12 @@ router.get('/:id', postController.getPostById);
  */
 router.put('/:id', postController.updatePost);
 
+/**
+ * @route DELETE /post/:id
+ * @desc Delete a Post
+ */
+router.delete('/:id', postController.deletePost);
+
 // Note: The route GET /post/:id/comments is often handled here or in a separate comments router
 // If handled here, it would look like: router.get('/:id/comments', ...);
 

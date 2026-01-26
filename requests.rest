@@ -32,25 +32,25 @@ POST http://localhost:3000/comments
 Content-Type: application/json
 
 {
-	"postId": "69734983cdd3d321f589cde2",
+	"postId": "69735099b970d67c5dce51fb",
 	"sender": "commenter2",
 	"message": "I didnt like that post!"
 }
 
 ### Get Comments for a Post (query)
-GET http://localhost:3000/comments?post=694d81391c79b2a3679f581c
+GET http://localhost:3000/comments?post=69735099b970d67c5dce51fb
 
 ### Get Comments for a Post (route)
-GET http://localhost:3000/post/694d81391c79b2a3679f581c/comments
+GET http://localhost:3000/comments/post/696fb6a4d704e21443dd12d3
 
 ### Get All Comments
 GET http://localhost:3000/comments
 
 ### Get Comment by ID
-GET http://localhost:3000/comments/694d820b1c79b2a3679f5824
+GET http://localhost:3000/comments/697350b3b970d67c5dce51fe
 
 ### Update Comment
-PUT http://localhost:3000/comments/696fbda76ba1d3cf1c9746f2
+PUT http://localhost:3000/comments/697350b3b970d67c5dce51fe
 Content-Type: application/json
 
 {
@@ -59,4 +59,4 @@ Content-Type: application/json
 	"message": "Edited comment"
 }
 ### Delete Comment
-DELETE http://localhost:3000/comments/694d820b1c79b2a3679f5824
+DELETE http://localhost:3000/comments/697350b3b970d67c5dce51fe

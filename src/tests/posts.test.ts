@@ -69,4 +69,42 @@ describe('Posts API', () => {
         const response = await request(app).delete(`/post/${postId}`);
         expect(response.statusCode).toBe(200);
     });
+
+    test('POST /post should fail with invalid data', async () => {
+        const response = await request(app).post('/post').send({});
+        expect(response.statusCode).toBe(400);
+    });
+
+    test('GET /post/:id should fail with invalid id', async () => {
+        const response = await request(app).get('/post/invalid_id');
+        expect(response.statusCode).toBe(400);
+    });
+
+    test('GET /post/:id should fail if post not found', async () => {
+        const nonExistentId = new mongoose.Types.ObjectId();
+        const response = await request(app).get(`/post/${nonExistentId}`);
+        expect(response.statusCode).toBe(404);
+    });
+
+    test('PUT /post/:id should fail with invalid id', async () => {
+        const response = await request(app).put('/post/invalid_id').send({ title: 'New' });
+        expect(response.statusCode).toBe(400);
+    });
+
+    test('PUT /post/:id should fail if post not found', async () => {
+        const nonExistentId = new mongoose.Types.ObjectId();
+        const response = await request(app).put(`/post/${nonExistentId}`).send({ title: 'New' });
+        expect(response.statusCode).toBe(404);
+    });
+
+    test('DELETE /post/:id should fail with invalid id', async () => {
+        const response = await request(app).delete('/post/invalid_id');
+        expect(response.statusCode).toBe(400);
+    });
+
+    test('DELETE /post/:id should fail if post not found', async () => {
+        const nonExistentId = new mongoose.Types.ObjectId();
+        const response = await request(app).delete(`/post/${nonExistentId}`);
+        expect(response.statusCode).toBe(404);
+    });
 });

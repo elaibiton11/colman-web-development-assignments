@@ -17,8 +17,12 @@ app.get('/', (req, res) => {
   res.send({ message: 'Posts & Comments API' });
 });
 
-db.connect().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server listening on http://localhost:${PORT}`);
+if (process.env.NODE_ENV !== 'test') {
+  db.connect().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server listening on http://localhost:${PORT}`);
+    });
   });
-});
+}
+
+export default app;

@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/index.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "tsc -p tsconfig.json && node dist/index.js"
+    "start": "tsc -p tsconfig.json && node dist/index.js",
+    "test": "jest --detectOpenHandles --forceExit --runInBand"
   },
-"dependencies": {
+  "dependencies": {
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "bcrypt": "^6.0.0",

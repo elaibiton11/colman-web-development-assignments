@@ -1,5 +1,15 @@
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDUyNjcsImV4cCI6MTc2OTU0ODg2N30.68SU1RgwJHoLWH8Xbzao89bnWeBXc5auXJoCq1iOhZc
+@accessToken = eyJhbGciOiJIUzIx1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDUyNjcsImV4cCI6MTc2OTU0ODg2N30.68SU1RgwJHoLWH8Xbzao89bnWeBXc5auXJoCq1iOhZc
 
+
+### Register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+	"username": "NewUser123",
+	"email": "newuser@example.com",
+	"password": "password123"
+}
 
 ### Login
 POST http://localhost:3000/auth/login

@@ -3,6 +3,18 @@ import UserModel from '../models/user_model';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+const register = async (req: Request, res: Response) => {
+    const { email, password, username } = req.body;
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const user = await UserModel.create({ email, password: hashedPassword, username });
+        res.status(200).send(user);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
 const login = async (req: Request, res: Response) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -77,6 +89,7 @@ const refresh = async (req: Request, res: Response) => {
 };
 
 export default {
+    register,
     login,
     logout,
     refresh

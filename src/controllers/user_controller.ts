@@ -1,18 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user_model';
-import bcrypt from 'bcrypt';
 
-const createUser = async (req: Request, res: Response) => {
-  try {
-    const { password, ...rest } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const user = await UserModel.create({ ...rest, password: hashedPassword });
-    res.status(201).send(user);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -66,7 +54,6 @@ const deleteUser = async (req: Request, res: Response) => {
 };
 
 export default {
-  createUser,
   getAllUsers,
   getUserById,
   updateUser,

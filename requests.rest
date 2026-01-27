@@ -27,6 +27,10 @@ Content-Type: application/json
 	"content": "Updated content",
 	"sender": "user123"
 }
+
+### Delete a Post (replace :id)
+DELETE http://localhost:3000/post/69734983cdd3d321f589cde2
+
 ### Create a Comment
 POST http://localhost:3000/comments
 Content-Type: application/json
@@ -58,5 +62,35 @@ Content-Type: application/json
 	"sender": "commenter1",
 	"message": "Edited comment"
 }
+
 ### Delete Comment
 DELETE http://localhost:3000/comments/697350b3b970d67c5dce51fe
+
+### Create a User
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+	"username": "Elai_biton",
+	"email": "elai@example.com",
+	"password": "password123"
+}
+
+### Get All Users
+GET http://localhost:3000/users
+
+### Get a User by ID (replace :id)
+GET http://localhost:3000/users/6978f19488be223e2ec9c5c3
+
+### Update a User (replace :id)
+PUT http://localhost:3000/users/6978f19488be223e2ec9c5c3
+Content-Type: application/json
+
+{
+	"username": "janedoe",
+	"email": "jane@example.com",
+	"password": "newpassword456"
+}
+
+### Delete a User (replace :id)
+DELETE http://localhost:3000/users/6978f0e888be223e2ec9c5be

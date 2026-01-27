@@ -13,8 +13,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/post', authMiddleware, postRouter);
-app.use('/comments', commentRouter);
-app.use('/users', userRouter);
+app.use('/comments', authMiddleware, commentRouter);
+app.use('/users', authMiddleware, userRouter);
 app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {

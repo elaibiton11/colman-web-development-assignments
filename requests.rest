@@ -1,4 +1,4 @@
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDUwNjIsImV4cCI6MTc2OTU0ODY2Mn0.aHRDrfB_QOHzunKiolJtliOClTIqfPxsm-GK2E6aFZ8
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDUyNjcsImV4cCI6MTc2OTU0ODg2N30.68SU1RgwJHoLWH8Xbzao89bnWeBXc5auXJoCq1iOhZc
 
 
 ### Login
@@ -67,6 +67,7 @@ Authorization: Bearer {{accessToken}}
 
 ### Create a Comment
 POST http://localhost:3000/comments
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
@@ -77,18 +78,23 @@ Content-Type: application/json
 
 ### Get Comments for a Post (query)
 GET http://localhost:3000/comments?post=69735099b970d67c5dce51fb
+Authorization: Bearer {{accessToken}}
 
 ### Get Comments for a Post (route)
 GET http://localhost:3000/comments/post/696fb6a4d704e21443dd12d3
+Authorization: Bearer {{accessToken}}
 
 ### Get All Comments
 GET http://localhost:3000/comments
+Authorization: Bearer {{accessToken}}
 
 ### Get Comment by ID
 GET http://localhost:3000/comments/697350b3b970d67c5dce51fe
+Authorization: Bearer {{accessToken}}
 
 ### Update Comment
 PUT http://localhost:3000/comments/697350b3b970d67c5dce51fe
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
@@ -99,9 +105,11 @@ Content-Type: application/json
 
 ### Delete Comment
 DELETE http://localhost:3000/comments/697350b3b970d67c5dce51fe
+Authorization: Bearer {{accessToken}}
 
 ### Create a User
 POST http://localhost:3000/users
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
@@ -112,12 +120,15 @@ Content-Type: application/json
 
 ### Get All Users
 GET http://localhost:3000/users
+Authorization: Bearer {{accessToken}}
 
 ### Get a User by ID (replace :id)
 GET http://localhost:3000/users/6978f19488be223e2ec9c5c3
+Authorization: Bearer {{accessToken}}
 
 ### Update a User (replace :id)
 PUT http://localhost:3000/users/6978f19488be223e2ec9c5c3
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
@@ -128,5 +139,4 @@ Content-Type: application/json
 
 ### Delete a User (replace :id)
 DELETE http://localhost:3000/users/6978f0e888be223e2ec9c5be
-
-
+Authorization: Bearer {{accessToken}}

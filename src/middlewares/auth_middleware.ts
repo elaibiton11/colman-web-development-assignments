@@ -1,15 +1,20 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    const token = req.header('authorization')?.split(' ')[1];
 
-    if (token == null) return res.sendStatus(401);
+    if (!token) {
+        return res.status(401).send("Access Denied");
+    }
 
-    jwt.verify(token, process.env.TOKEN_SECRET as string, (err, user) => {
-        if (err) return res.sendStatus(403);
-        (req as any).user = user;
+    try {
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET as string);
+        (req as any).user = verified;
         next();
-    });
+    } catch (err) {
+        res.status(400).send("Invalid Token");
+    }
 };
+
+export default authMiddleware;

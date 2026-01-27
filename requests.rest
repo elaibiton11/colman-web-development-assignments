@@ -1,6 +1,35 @@
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDUwNjIsImV4cCI6MTc2OTU0ODY2Mn0.aHRDrfB_QOHzunKiolJtliOClTIqfPxsm-GK2E6aFZ8
+
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+	"email": "elai@example.com",
+	"password": "password123"
+}
+
+### Logout
+POST http://localhost:3000/auth/logout
+Content-Type: application/json
+
+{
+	"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDM5ODd9.te5XIXZyhYXl2WpKmDYx21FsvXBuDeCJe5eBKVpvysA",
+
+}
+
+### Refresh Token
+POST http://localhost:3000/auth/refresh
+Content-Type: application/json
+
+{
+	"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDQ0NjJ9.q2akp9n-U494A6eKKJDj74IMw4QgSykSQH_D6Ni2aEs"
+}
 
 ### Add a New Post
 POST http://localhost:3000/post
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
@@ -11,15 +40,19 @@ Content-Type: application/json
 
 ### Get All Posts
 GET http://localhost:3000/post
+Authorization: Bearer {{accessToken}}
 
 ### Get a Post by ID (replace :id)
 GET http://localhost:3000/post/69734983cdd3d321f589cde2
+Authorization: Bearer {{accessToken}}
 
 ### Get Posts by Sender
 GET http://localhost:3000/post?sender=user123
+Authorization: Bearer {{accessToken}}
 
 ### Update a Post (replace :id)
 PUT http://localhost:3000/post/69734983cdd3d321f589cde2
+Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
@@ -30,6 +63,7 @@ Content-Type: application/json
 
 ### Delete a Post (replace :id)
 DELETE http://localhost:3000/post/69734983cdd3d321f589cde2
+Authorization: Bearer {{accessToken}}
 
 ### Create a Comment
 POST http://localhost:3000/comments
@@ -95,28 +129,4 @@ Content-Type: application/json
 ### Delete a User (replace :id)
 DELETE http://localhost:3000/users/6978f0e888be223e2ec9c5be
 
-### Login
-POST http://localhost:3000/auth/login
-Content-Type: application/json
 
-{
-	"email": "elai@example.com",
-	"password": "password123"
-}
-
-### Logout
-POST http://localhost:3000/auth/logout
-Content-Type: application/json
-
-{
-	"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDM5ODd9.te5XIXZyhYXl2WpKmDYx21FsvXBuDeCJe5eBKVpvysA",
-
-}
-
-### Refresh Token
-POST http://localhost:3000/auth/refresh
-Content-Type: application/json
-
-{
-	"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDQ0NjJ9.q2akp9n-U494A6eKKJDj74IMw4QgSykSQH_D6Ni2aEs"
-}

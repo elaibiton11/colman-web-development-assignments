@@ -4,6 +4,7 @@ import express from 'express';
 import postRouter from './routes/post_routes';
 import commentRouter from './routes/comment_routes';
 import userRouter from './routes/user_routes';
+import authRouter from './routes/auth_routes';
 import db from './config/db';
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/post', postRouter);
 app.use('/comments', commentRouter);
 app.use('/users', userRouter);
+app.use('/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send({ message: 'Posts & Comments API' });

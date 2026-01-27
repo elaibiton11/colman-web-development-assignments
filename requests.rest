@@ -94,3 +94,12 @@ Content-Type: application/json
 
 ### Delete a User (replace :id)
 DELETE http://localhost:3000/users/6978f0e888be223e2ec9c5be
+
+### Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+	"email": "elai@example.com",
+	"password": "password123"
+}

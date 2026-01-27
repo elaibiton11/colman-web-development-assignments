@@ -1,15 +1,6 @@
 import { Request, Response } from 'express';
 import UserModel from '../models/user_model';
 
-const createUser = async (req: Request, res: Response) => {
-  try {
-    const userBody = req.body;
-    const user = await UserModel.create(userBody);
-    res.status(201).send(user);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
 
 const getAllUsers = async (req: Request, res: Response) => {
   try {
@@ -63,7 +54,6 @@ const deleteUser = async (req: Request, res: Response) => {
 };
 
 export default {
-  createUser,
   getAllUsers,
   getUserById,
   updateUser,

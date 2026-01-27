@@ -4,9 +4,28 @@ import mongoose from 'mongoose';
 import User from '../models/user_model';
 
 let userId: string;
+let accessToken: string;
+
+process.env.TOKEN_SECRET = 'test_secret';
+process.env.REFRESH_TOKEN_SECRET = 'test_refresh_secret';
 
 beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URI!);
+    await User.deleteMany({});
+
+    // Create a temporary user to get a token
+    await request(app).post('/auth/register').send({
+        username: 'adminUser',
+        email: 'admin@test.com',
+        password: 'password123'
+    });
+    const loginRes = await request(app).post('/auth/login').send({
+        email: 'admin@test.com',
+        password: 'password123'
+    });
+    accessToken = loginRes.body.accessToken;
+    
+    // Delete the user so the DB is empty for the tests
     await User.deleteMany({});
 });
 
@@ -17,28 +36,30 @@ afterAll(async () => {
 describe('Users API', () => {
 
     test('GET /users should return empty list initially', async () => {
-        const response = await request(app).get('/users');
+        const response = await request(app).get('/users')
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual([]);
     });
 
-    test('POST /users should create a new user', async () => {
+    test('POST /auth/register should register a new user', async () => {
         const newUser = {
             username: 'testuser',
             email: 'testuser@example.com',
             password: 'password123'
         };
-        const response = await request(app).post('/users').send(newUser);
-        expect(response.statusCode).toBe(201);
+        const response = await request(app).post('/auth/register')
+            .send(newUser);
+        expect(response.statusCode).toBe(200);
         expect(response.body.username).toBe(newUser.username);
         expect(response.body.email).toBe(newUser.email);
-        expect(response.body.password).toBe(newUser.password);
         
         userId = response.body._id;
     });
 
     test('GET /users should return the created user', async () => {
-        const response = await request(app).get('/users');
+        const response = await request(app).get('/users')
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(200);
         expect(response.body.length).toBe(1);
         expect(response.body[0].username).toBe('testuser');
@@ -46,11 +67,11 @@ describe('Users API', () => {
     });
 
     test('GET /users/:id should return the user by id', async () => {
-        const response = await request(app).get(`/users/${userId}`);
+        const response = await request(app).get(`/users/${userId}`)
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(200);
         expect(response.body.username).toBe('testuser');
         expect(response.body.email).toBe('testuser@example.com');
-        expect(response.body.password).toBe('password123');
     });
 
     test('PUT /users/:id should update the user', async () => {
@@ -59,7 +80,9 @@ describe('Users API', () => {
             email: 'updateduser@example.com',
             password: 'newpassword456'
         };
-        const response = await request(app).put(`/users/${userId}`).send(updatedUser);
+        const response = await request(app).put(`/users/${userId}`)
+            .set('Authorization', 'Bearer ' + accessToken)
+            .send(updatedUser);
         expect(response.statusCode).toBe(200);
         expect(response.body.username).toBe(updatedUser.username);
         expect(response.body.email).toBe(updatedUser.email);
@@ -67,45 +90,55 @@ describe('Users API', () => {
     });
 
     test('DELETE /users/:id should delete the user', async () => {
-        const response = await request(app).delete(`/users/${userId}`);
+        const response = await request(app).delete(`/users/${userId}`)
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(200);
     });
 
-    test('POST /users should fail with invalid data', async () => {
-        const response = await request(app).post('/users').send({});
+    test('POST /auth/register should fail with invalid data', async () => {
+        const response = await request(app).post('/auth/register')
+            .send({});
         expect(response.statusCode).toBe(400);
     });
 
     test('GET /users/:id should fail with invalid id', async () => {
-        const response = await request(app).get('/users/invalid_id');
+        const response = await request(app).get('/users/invalid_id')
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(400);
     });
 
     test('GET /users/:id should fail if user not found', async () => {
         const nonExistentId = new mongoose.Types.ObjectId();
-        const response = await request(app).get(`/users/${nonExistentId}`);
+        const response = await request(app).get(`/users/${nonExistentId}`)
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(404);
     });
 
     test('PUT /users/:id should fail with invalid id', async () => {
-        const response = await request(app).put('/users/invalid_id').send({ username: 'new' });
+        const response = await request(app).put('/users/invalid_id')
+            .set('Authorization', 'Bearer ' + accessToken)
+            .send({ username: 'new' });
         expect(response.statusCode).toBe(400);
     });
 
     test('PUT /users/:id should fail if user not found', async () => {
         const nonExistentId = new mongoose.Types.ObjectId();
-        const response = await request(app).put(`/users/${nonExistentId}`).send({ username: 'new' });
+        const response = await request(app).put(`/users/${nonExistentId}`)
+            .set('Authorization', 'Bearer ' + accessToken)
+            .send({ username: 'new' });
         expect(response.statusCode).toBe(404);
     });
 
     test('DELETE /users/:id should fail with invalid id', async () => {
-        const response = await request(app).delete('/users/invalid_id');
+        const response = await request(app).delete('/users/invalid_id')
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(400);
     });
 
     test('DELETE /users/:id should fail if user not found', async () => {
         const nonExistentId = new mongoose.Types.ObjectId();
-        const response = await request(app).delete(`/users/${nonExistentId}`);
+        const response = await request(app).delete(`/users/${nonExistentId}`)
+            .set('Authorization', 'Bearer ' + accessToken);
         expect(response.statusCode).toBe(404);
     });
 });

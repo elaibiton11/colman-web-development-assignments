@@ -4,12 +4,6 @@ import userController from '../controllers/user_controller';
 const router = Router();
 
 /**
- * @route POST /users
- * @desc Add a New User
- */
-router.post('/', userController.createUser);
-
-/**
  * @route GET /users
  * @desc Get All Users
  */

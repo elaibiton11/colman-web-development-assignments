@@ -109,5 +109,14 @@ POST http://localhost:3000/auth/logout
 Content-Type: application/json
 
 {
-	"refreshToken": "paste_refresh_token_here"
+	"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDM5ODd9.te5XIXZyhYXl2WpKmDYx21FsvXBuDeCJe5eBKVpvysA",
+
+}
+
+### Refresh Token
+POST http://localhost:3000/auth/refresh
+Content-Type: application/json
+
+{
+	"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTc5MTg3ODM2NTJjZDZiOWMzNDM0NjQiLCJpYXQiOjE3Njk1NDQ0NjJ9.q2akp9n-U494A6eKKJDj74IMw4QgSykSQH_D6Ni2aEs"
 }

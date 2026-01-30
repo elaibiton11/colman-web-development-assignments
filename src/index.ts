@@ -5,6 +5,7 @@ import postRouter from './routes/post_routes';
 import commentRouter from './routes/comment_routes';
 import userRouter from './routes/user_routes';
 import authRouter from './routes/auth_routes';
+import docsRouter from './routes/docs_route';
 import authMiddleware from './middlewares/auth_middleware';
 import db from './config/db';
 
@@ -16,6 +17,7 @@ app.use('/post', authMiddleware, postRouter);
 app.use('/comments', authMiddleware, commentRouter);
 app.use('/users', authMiddleware, userRouter);
 app.use('/auth', authRouter);
+app.use('/api-docs', docsRouter);
 
 app.get('/', (req, res) => {
   res.send({ message: 'Posts & Comments API' });
